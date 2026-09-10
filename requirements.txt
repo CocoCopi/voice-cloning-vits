@@ -1,0 +1,22 @@
+# YourTTS-style zero-shot voice cloning pipeline.
+# NOTE: install torch/torchaudio matched to the CUDA runtime FIRST
+# (the notebook does this), then:
+#   pip install -r requirements.txt
+#
+# `coqui-tts` (idiap fork, 0.27.x) is the actively maintained continuation of
+# the original Coqui `TTS` package and pins its own versions of
+# coqui-tts-trainer, coqpit-config and monotonic-alignment-search.
+
+coqui-tts[cuda]>=0.27.0,<0.28
+speechbrain>=1.0.0,<2.0
+transformers>=4.40          # UTMOS / not used directly at train time
+huggingface-hub>=0.23
+tqdm
+requests
+tensorboard
+
+# Eval-only extras
+jiwer>=3.0                  # WER of ASR transcripts (naturalness proxy)
+
+# Notebook convenience
+gdown

@@ -1,0 +1,52 @@
+# Frozen pretrained speaker encoder (ECAPA-TDNN, Coqui release, VoxCeleb-trained).
+# 16 kHz input, 80-mel torch STFT, 512-d L2-normalized projection.
+# Consumed by: download_speaker_encoder.py verification, compute_embeddings.py,
+# the VITS trainer (SCL), evaluate_cloning.py and infer.py.
+model: "speaker_encoder"
+model_name: "ecapa"
+audio:
+    fft_size: 512
+    win_length: 400
+    hop_length: 160
+    frame_shift_ms: null
+    frame_length_ms: null
+    stft_pad_mode: "reflect"
+    sample_rate: 16000
+    resample: false
+    preemphasis: 0.97
+    ref_level_db: 20
+    do_sound_norm: false
+    log_func: "np.log10"
+    do_trim_silence: true
+    trim_db: 60
+    do_rms_norm: false
+    db_level: null
+    power: 1.5
+    griffin_lim_iters: 60
+    num_mels: 80
+    mel_fmin: 0.0
+    mel_fmax: 8000.0
+    spec_gain: 20.0
+    do_amp_to_db_linear: true
+    do_amp_to_db_mel: true
+    pitch_fmax: 640.0
+    pitch_fmin: 1.0
+    signal_norm: true
+    min_level_db: -100
+    symmetric_norm: true
+    max_norm: 4.0
+    clip_norm: true
+    stats_path: null
+model_params:
+    input_dim: 80
+    use_torch_spec: true
+    log_input_audio: false
+    proj_dim: 512
+    channels: [1024, 1024, 1024, 1024, 3072]
+    kernel_sizes: [5, 3, 3, 3, 1]
+    dilations: [1, 2, 3, 4, 1]
+    attention_channels: 128
+    res2net_scale: 8
+    se_channels: 128
+    global_context: false
+    grad_clip: null

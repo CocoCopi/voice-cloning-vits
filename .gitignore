@@ -1,0 +1,27 @@
+# Datasets & audio
+data/
+*.wav
+*.flac
+!tests/data/*.wav
+
+# Training artifacts
+output/
+runs/
+checkpoints/
+*.pth
+*.ckpt
+
+# Embedding caches (large JSONs)
+*.embeddings.json
+d_vectors*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Colab
+drive/
+*.zip
