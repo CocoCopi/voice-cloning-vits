@@ -106,10 +106,16 @@ cells.append(
         """# ── 3. Install stack (keep Colab's preinstalled CUDA torch!) ────────────────
 # Do NOT reinstall torch here - Colab's build matches its CUDA runtime and
 # coqui-tts only requires torch>=2.2, which is already satisfied.
-!pip install -q 'coqui-tts[cuda]>=0.27.0,<0.28' speechbrain jiwer gdown
+# transformers<5 is REQUIRED: coqui-tts 0.27.x imports `isin_mps_friendly`,
+# which transformers 5.x removed (idiap/coqui-ai-TTS issue #558).
+!pip install -q 'coqui-tts[cuda]>=0.27.0,<0.28' 'transformers>=4.40,<5' speechbrain jiwer gdown
 
-import torch, torchaudio, TTS
-print("torch", torch.__version__, "| torchaudio", torchaudio.__version__, "| TTS", TTS.__version__)
+import torch, torchaudio, TTS, transformers
+assert transformers.__version__.split('.')[0] == '4', (
+    f"transformers {transformers.__version__} breaks coqui-tts (needs <5). "
+    "Re-run this cell - it pins transformers>=4.40,<5."
+)
+print("torch", torch.__version__, "| torchaudio", torchaudio.__version__, "| TTS", TTS.__version__, "| transformers", transformers.__version__)
 from TTS.tts.configs.vits_config import VitsConfig  # import smoke test
 from TTS.tts.datasets.formatters import register_formatter  # custom formatter hooks exist
 print("VitsConfig import OK")
@@ -332,6 +338,7 @@ cells.append(
 
 | Symptom | Fix |
 |---|---|
+| `ImportError: cannot import name 'isin_mps_friendly'` | transformers 5.x got installed; re-run the install cell (it pins `transformers>=4.40,<5`), then **Runtime → Restart session** and re-run cells 1-3 if it persists |
 | CUDA OOM | lower `--batch-size` (raise `--grad-accum` to compensate), or lower `max_audio_len` in `build_config.py` |
 | `KeyError` on d-vector key | d-vector JSON keys must be `dataset#relpath-without-ext`; regenerate with `compute_embeddings.py` |
 | Metallic/unstable audio early | normal before ~30-50k steps; discriminator warms up late |
