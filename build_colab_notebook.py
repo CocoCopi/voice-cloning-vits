@@ -84,18 +84,12 @@ print("data ->", os.environ['DATA_ROOT'])
 
 cells.append(
     code(
-        """# ── 2. Get the pipeline code ─────────────────────────────────────────────────
-import os, getpass
+        """# ── 2. Get the pipeline code (public repo - no auth needed) ─────────────
+import os
 REPO_DIR = "/content/voice-cloning-vits"
 
 if not os.path.exists(REPO_DIR):
-    try:
-        !git clone https://github.com/CocoCopi/voice-cloning-vits.git {REPO_DIR}
-    except Exception:
-        # private repo: paste a fine-grained PAT with repo-read scope when prompted
-        # (the token is used in-memory only and never written to the notebook)
-        pat = getpass.getpass('GitHub PAT: ')
-        !git clone https://{pat}@github.com/CocoCopi/voice-cloning-vits.git {REPO_DIR}
+    !git clone https://github.com/CocoCopi/voice-cloning-vits.git {REPO_DIR}
 %cd {REPO_DIR}
 !git pull || true
 

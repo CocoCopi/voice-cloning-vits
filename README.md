@@ -1,5 +1,7 @@
 # Zero-Shot Voice Cloning — Speaker-Conditioned VITS (YourTTS recipe)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CocoCopi/voice-cloning-vits/blob/main/voice_cloning_colab.ipynb)
+
 Train **your own** text-to-speech model — not a wrapper around someone else's API — that takes any
 short reference clip at inference and clones that voice, generalizing to speakers never seen during
 training. Designed to train on a single T4 (16 GB) across multiple Colab sessions.
@@ -41,7 +43,9 @@ Run the contract tests after touching key/parsing logic: `pytest tests/ -q`
 
 ## Quickstart (Colab, T4)
 
-Open `voice_cloning_colab.ipynb` and run top-to-bottom. The notebook:
+Open the notebook via the **Open in Colab** badge above (or from
+[github.com/CocoCopi/voice-cloning-vits](https://github.com/CocoCopi/voice-cloning-vits)) and run
+top-to-bottom. The repo is public, so Colab clones it without any auth. The notebook:
 
 1. mounts Drive (datasets + checkpoints survive disconnects),
 2. installs `coqui-tts` (the maintained idiap fork) on Colab's CUDA torch,
